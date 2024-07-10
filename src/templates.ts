@@ -31,7 +31,7 @@ export const genSideBar = (treeNode: Components.Tree.Node, deepth: number = 0) =
             }
             ret.push('\t'.repeat(deepth) + `* ${c.name}`)
             ret.push(...genSideBar(c, deepth + 1))
-        } else if (c.type === 'file' && c.name.endsWith('.md') && !c.name.startsWith('_') && !c.name.startsWith('.')) {
+        } else if (c.type === 'file' && c.name.endsWith('.md') && !c.name.startsWith('_') && !c.name.startsWith('.') && c.name !== 'README.md') {
           let path = c.path
           if (path.startsWith('/')) {
             path = path.slice(1)
