@@ -1,3 +1,4 @@
+import { ctx } from '@yank-note/runtime-api'
 import {Components} from "@yank-note/runtime-api/types/types/renderer/types";
 
 export const IndexHtml = (sidebar: boolean) => {
@@ -34,7 +35,7 @@ export const genSideBar = (treeNode: Components.Tree.Node, deepth: number = 0) =
         } else if (c.type === 'file' && c.name.endsWith('.md') && !c.name.startsWith('_') && !c.name.startsWith('.') && c.name !== 'README.md') {
           let path = c.path
           if (path.startsWith('/')) {
-            path = path.slice(1)
+            path = ctx.utils.encodeMarkdownLink(path.slice(1))
           }
           ret.push('\t'.repeat(deepth) + `* [${c.name.slice(0, -3)}](${path})`)
         }
