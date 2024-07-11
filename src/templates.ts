@@ -27,12 +27,12 @@ export const genSideBar = (treeNode: Components.Tree.Node, deepth: number = 0) =
     const ret: string[] = []
     children?.forEach((c) => {
         if (c.type === 'dir') {
-            if (c.name === 'FILES') {
-                return
-            }
+            const res = genSideBar(c, deepth + 1)
+            if (res.length === 0) return
+
             ret.push('\t'.repeat(deepth) + `* ${c.name}`)
-            ret.push(...genSideBar(c, deepth + 1))
-        } else if (c.type === 'file' && c.name.endsWith('.md') && !c.name.startsWith('_') && !c.name.startsWith('.') && c.name !== 'README.md') {
+            ret.push(...res)
+        } else if (ctx.doc.isMarkdownFile(c) && !c.name.startsWith('_') && !c.name.startsWith('.') && c.name !== 'README.md') {
           let path = c.path
           if (path.startsWith('/')) {
             path = ctx.utils.encodeMarkdownLink(path.slice(1))
