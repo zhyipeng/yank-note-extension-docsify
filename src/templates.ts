@@ -33,10 +33,7 @@ export const genSideBar = (treeNode: Components.Tree.Node, deepth: number = 0) =
             ret.push('\t'.repeat(deepth) + `* ${c.name}`)
             ret.push(...res)
         } else if (ctx.doc.isMarkdownFile(c) && !c.name.startsWith('_') && !c.name.startsWith('.') && c.name !== 'README.md') {
-          let path = c.path
-          if (path.startsWith('/')) {
-            path = ctx.utils.encodeMarkdownLink(path.slice(1))
-          }
+          const path = ctx.utils.encodeMarkdownLink(c.path.startsWith('/') ? c.path.slice(1) : c.path)
           ret.push('\t'.repeat(deepth) + `* [${c.name.slice(0, -3)}](${path})`)
         }
     })
