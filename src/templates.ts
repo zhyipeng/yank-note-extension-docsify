@@ -1,3 +1,4 @@
+import { ctx } from '@yank-note/runtime-api'
 import {Components} from "@yank-note/runtime-api/types/types/renderer/types";
 
 export const IndexHtml = (sidebar: boolean) => {
@@ -7,7 +8,7 @@ export const IndexHtml = (sidebar: boolean) => {
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta charset="UTF-8">
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify/themes/vue.css">
+  <link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/docsify/themes/vue.css">
 </head>
 <body>
   <div id="app"></div>
@@ -16,7 +17,7 @@ export const IndexHtml = (sidebar: boolean) => {
       loadSidebar: ${sidebar},
     }
   </script>
-  <script src="//cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js"></script>
+  <script src="https://fastly.jsdelivr.net/npm/docsify/lib/docsify.min.js"></script>
 </body>
 </html>`
 }
@@ -26,16 +27,13 @@ export const genSideBar = (treeNode: Components.Tree.Node, deepth: number = 0) =
     const ret: string[] = []
     children?.forEach((c) => {
         if (c.type === 'dir') {
-            if (c.name === 'FILES') {
-                return
-            }
+            const res = genSideBar(c, deepth + 1)
+            if (res.length === 0) return
+
             ret.push('\t'.repeat(deepth) + `* ${c.name}`)
-            ret.push(...genSideBar(c, deepth + 1))
-        } else if (c.type === 'file' && c.name.endsWith('.md') && !c.name.startsWith('_') && !c.name.startsWith('.') && c.name !== 'README.md') {
-          let path = c.path
-          if (path.startsWith('/')) {
-            path = path.slice(1)
-          }
+            ret.push(...res)
+        } else if (ctx.doc.isMarkdownFile(c) && !c.name.startsWith('_') && !c.name.startsWith('.') && c.name !== 'README.md') {
+          const path = ctx.utils.encodeMarkdownLink(c.path.startsWith('/') ? c.path.slice(1) : c.path)
           ret.push('\t'.repeat(deepth) + `* [${c.name.slice(0, -3)}](${path})`)
         }
     })
