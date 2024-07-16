@@ -1,6 +1,6 @@
 {
   "name": "yank-note-extension-docsify",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "displayName": "Docsify",
   "description": "Docsify quick start",
   "displayName_ZH-CN": "Docsify",
@@ -49,6 +49,5 @@
     "vue": "^3.2.33",
     "vue-tsc": "^0.34.11"
   },
-  "dependencies": {
-  }
+  "dependencies": {}
 }
