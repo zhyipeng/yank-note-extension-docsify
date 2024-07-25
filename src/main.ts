@@ -11,12 +11,12 @@ registerPlugin({
   name: extensionName,
   register (ctx) {
     ctx.statusBar.tapMenus(menus => {
-      docsify.check(ctx)
       menus['status-bar-tool']?.list?.push({
         id: extensionName,
         type: 'normal',
         title: i18n.t('gen_docsify'),
         onClick: async () => {
+          await docsify.check(ctx)
           const gen = await ctx.ui.useModal().confirm({
             component: DocsifyGenerator
           })
