@@ -1,3 +1,12 @@
+## [0.0.3](https://github.com/zhyipeng/yank-note-extension-docsify/compare/v0.0.2...v0.0.3) (2024-07-25)
+
+
+### Bug Fixes
+
+* 修复输入时候频繁刷新侧栏目录树问题 ([ed32ded](https://github.com/zhyipeng/yank-note-extension-docsify/commit/ed32deda6644ba2ed9da993503ee111e39dbd86f))
+
+
+
 ## 0.0.2 (2024-07-16)
 
 
